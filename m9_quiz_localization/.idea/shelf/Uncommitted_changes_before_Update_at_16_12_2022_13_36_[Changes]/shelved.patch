@@ -1,0 +1,611 @@
+Index: app/src/main/java/com/example/quizresources/navigation/QuizStorageNavGraph.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.quizresources.navigation\r\n\r\nimport androidx.compose.animation.AnimatedContentScope\r\nimport androidx.compose.animation.ExperimentalAnimationApi\r\nimport androidx.compose.animation.core.tween\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.navigation.NavHostController\r\nimport com.example.quizresources.screen.Question\r\nimport com.example.quizresources.screen.QuestionLast\r\nimport com.example.quizresources.screen.ResultsQuestions\r\nimport com.example.quizresources.screen.StartScreen\r\nimport com.google.accompanist.navigation.animation.AnimatedNavHost\r\nimport com.google.accompanist.navigation.animation.composable\r\n\r\n@ExperimentalAnimationApi\r\n@Composable\r\nfun SetupNavGraph(navController: NavHostController) {\r\n    val tweenSpeed = 1000\r\n    AnimatedNavHost(navController = navController,\r\n        startDestination = QuizStorageNavRoute.StartScreen.route,\r\n        enterTransition = {\r\n            slideIntoContainer(towards = AnimatedContentScope.SlideDirection.Start, tween(tweenSpeed))\r\n        },\r\n        exitTransition = {\r\n            slideOutOfContainer(towards = AnimatedContentScope.SlideDirection.Left, tween(tweenSpeed))\r\n        },\r\n        popEnterTransition = {\r\n            slideIntoContainer(towards = AnimatedContentScope.SlideDirection.End, tween(tweenSpeed))\r\n        },\r\n        popExitTransition = {\r\n            slideOutOfContainer(towards = AnimatedContentScope.SlideDirection.Left, tween(tweenSpeed))\r\n        }) {\r\n        composable(route = QuizStorageNavRoute.StartScreen.route) {\r\n            StartScreen(navController = navController)\r\n        }\r\n        composable(route = QuizStorageNavRoute.Question1.route) {\r\n            Question(navController = navController,\r\n                questionNumber = 1,\r\n                question = \"Любой вопрос\",\r\n                radioOptions = listOf(\"A\", \"B\", \"C\"),\r\n                route = QuizStorageNavRoute.Question2.route)\r\n        }\r\n        composable(route = QuizStorageNavRoute.Question2.route) {\r\n            Question(navController = navController,\r\n                questionNumber = 2,\r\n                question = \"Любой вопрос\",\r\n                radioOptions = listOf(\"вариант A\", \"вариант B\", \"вариант C\"),\r\n                route = QuizStorageNavRoute.Question3.route)\r\n        }\r\n        composable(route = QuizStorageNavRoute.Question3.route) {\r\n            QuestionLast(navController = navController,\r\n                questionNumber = 3,\r\n                question = \"Любой вопрос\",\r\n                radioOptions = listOf(\"ответ A\", \"ответ B\", \"ответ C\"))\r\n        }\r\n        composable(route = QuizStorageNavRoute.ResultsQuestions.route) {\r\n            ResultsQuestions(navController = navController)\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/quizresources/navigation/QuizStorageNavGraph.kt b/app/src/main/java/com/example/quizresources/navigation/QuizStorageNavGraph.kt
+--- a/app/src/main/java/com/example/quizresources/navigation/QuizStorageNavGraph.kt	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ b/app/src/main/java/com/example/quizresources/navigation/QuizStorageNavGraph.kt	(date 1671176026627)
+@@ -4,7 +4,10 @@
+ import androidx.compose.animation.ExperimentalAnimationApi
+ import androidx.compose.animation.core.tween
+ import androidx.compose.runtime.Composable
++import androidx.compose.ui.res.stringArrayResource
++import androidx.compose.ui.res.stringResource
+ import androidx.navigation.NavHostController
++import com.example.quizresources.R
+ import com.example.quizresources.screen.Question
+ import com.example.quizresources.screen.QuestionLast
+ import com.example.quizresources.screen.ResultsQuestions
+@@ -36,22 +39,22 @@
+         composable(route = QuizStorageNavRoute.Question1.route) {
+             Question(navController = navController,
+                 questionNumber = 1,
+-                question = "Любой вопрос",
+-                radioOptions = listOf("A", "B", "C"),
++                question = stringResource(R.string.QUIZ1),
++                radioOptions = stringArrayResource(id = R.array.QUIZ1arr).toList(),
+                 route = QuizStorageNavRoute.Question2.route)
+         }
+         composable(route = QuizStorageNavRoute.Question2.route) {
+             Question(navController = navController,
+                 questionNumber = 2,
+-                question = "Любой вопрос",
+-                radioOptions = listOf("вариант A", "вариант B", "вариант C"),
++                question = stringResource(R.string.QUIZ2),
++                radioOptions = stringArrayResource(id = R.array.QUIZ2arr).toList(),//listOf("вариант A", "вариант B", "вариант C"),
+                 route = QuizStorageNavRoute.Question3.route)
+         }
+         composable(route = QuizStorageNavRoute.Question3.route) {
+             QuestionLast(navController = navController,
+                 questionNumber = 3,
+-                question = "Любой вопрос",
+-                radioOptions = listOf("ответ A", "ответ B", "ответ C"))
++                question = stringResource(R.string.QUIZ3),
++                radioOptions = stringArrayResource(id = R.array.QUIZ3arr).toList())
+         }
+         composable(route = QuizStorageNavRoute.ResultsQuestions.route) {
+             ResultsQuestions(navController = navController)
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Quiz resources</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ b/app/src/main/res/values/strings.xml	(date 1671176079351)
+@@ -1,3 +1,35 @@
+ <resources>
+-    <string name="app_name">Quiz resources</string>
++    <string name="app_name" translatable="false">Quiz resources</string>
++    <string name="date">Data</string>
++    <string name="chooseDate">"Choose a query: "</string>
++    <string name="startPant">Start image</string>
++    <string name="startQUIZ">Start QUIZ</string>
++    <string name="hide">Hide</string>
++    <string name="show">Show</string>
++    <string name="results">Results</string>
++    <string name="onMainScreen">Main</string>
++    <string name="numberQUIZ">Question</string>
++    <string name="nextQUIZ">Next QUIZ</string>
++
++    <string name="QUIZ1">Any question</string>
++    <string-array name="QUIZ1arr">
++        <item>A</item>
++        <item>B</item>
++        <item>C</item>
++    </string-array>
++
++    <string name="QUIZ2">Any question</string>
++    <string-array name="QUIZ2arr">
++        <item>option A</item>
++        <item>option B</item>
++        <item>option C</item>
++    </string-array>
++
++    <string name="QUIZ3">Any question</string>
++    <string-array name="QUIZ3arr">
++        <item>A response</item>
++        <item>B response</item>
++        <item>C response</item>
++    </string-array>
++
+ </resources>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09_[Changes]/shelved.patch	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ /dev/null	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
+@@ -1,96 +0,0 @@
+-Index: app/src/main/java/com/example/quizresources/MainActivity.kt
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package com.example.quizresources\r\n\r\nimport android.os.Bundle\r\nimport androidx.activity.ComponentActivity\r\nimport androidx.activity.compose.setContent\r\nimport androidx.compose.foundation.Image\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.unit.dp\r\nimport com.example.quizresources.ui.theme.QuizResourcesTheme\r\nimport com.example.quizresources.ui.theme.opensans\r\n\r\nclass MainActivity : ComponentActivity() {\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContent {\r\n            Box(modifier = Modifier.fillMaxSize()) {\r\n                Column(modifier = Modifier.fillMaxSize(),\r\n                    verticalArrangement = Arrangement.Center,\r\n                    horizontalAlignment = Alignment.CenterHorizontally) {\r\n                    \r\n                    Image(painter = painterResource(id = R.drawable.welcome_picture), contentDescription = \"\")\r\n                    Spacer(modifier = Modifier.height(10.dp))\r\n                    Text(text = \"Welcome picture\", fontFamily = opensans, fontWeight = FontWeight.Bold)\r\n                }\r\n            }\r\n        }\r\n    }\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/java/com/example/quizresources/MainActivity.kt b/app/src/main/java/com/example/quizresources/MainActivity.kt
+---- a/app/src/main/java/com/example/quizresources/MainActivity.kt	(revision ebab7c76bb57857889063aa3e67634cd94f45cc8)
+-+++ b/app/src/main/java/com/example/quizresources/MainActivity.kt	(date 1670222937808)
+-@@ -1,6 +1,7 @@
+- package com.example.quizresources
+- 
+- import android.os.Bundle
+-+import android.provider.ContactsContract
+- import androidx.activity.ComponentActivity
+- import androidx.activity.compose.setContent
+- import androidx.compose.foundation.Image
+-@@ -12,6 +13,9 @@
+- import androidx.compose.ui.res.painterResource
+- import androidx.compose.ui.text.font.FontWeight
+- import androidx.compose.ui.unit.dp
+-+import androidx.navigation.compose.NavHost
+-+import androidx.navigation.compose.composable
+-+import androidx.navigation.compose.rememberNavController
+- import com.example.quizresources.ui.theme.QuizResourcesTheme
+- import com.example.quizresources.ui.theme.opensans
+- 
+-@@ -23,12 +27,16 @@
+-                 Column(modifier = Modifier.fillMaxSize(),
+-                     verticalArrangement = Arrangement.Center,
+-                     horizontalAlignment = Alignment.CenterHorizontally) {
+--                    
+--                    Image(painter = painterResource(id = R.drawable.welcome_picture), contentDescription = "")
+-+
+-+                    Image(painter = painterResource(id = R.drawable.welcome_picture),
+-+                        contentDescription = "")
+-                     Spacer(modifier = Modifier.height(10.dp))
+--                    Text(text = "Welcome picture", fontFamily = opensans, fontWeight = FontWeight.Bold)
+-+                    Text(text = "Welcome picture",
+-+                        fontFamily = opensans,
+-+                        fontWeight = FontWeight.Bold)
+-                 }
+-             }
+-+
+-         }
+-     }
+- }
+-\ No newline at end of file
+-Index: app/src/main/java/com/example/quizresources/navigation/QUIZNavHost.kt
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/java/com/example/quizresources/navigation/QUIZNavHost.kt b/app/src/main/java/com/example/quizresources/navigation/QUIZNavHost.kt
+-new file mode 100644
+---- /dev/null	(date 1670223073401)
+-+++ b/app/src/main/java/com/example/quizresources/navigation/QUIZNavHost.kt	(date 1670223073401)
+-@@ -0,0 +1,10 @@
+-+package com.example.quizresources.navigation
+-+
+-+import androidx.compose.runtime.Composable
+-+
+-+sealed class NavRoute(val route: String) {
+-+    object 
+-+}
+-+
+-+@Composable
+-+fun QUIZNavHost(){}
+-\ No newline at end of file
+-Index: app/build.gradle
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>plugins {\r\n    id 'com.android.application'\r\n    id 'org.jetbrains.kotlin.android'\r\n}\r\n\r\nandroid {\r\n    namespace 'com.example.quizresources'\r\n    compileSdk 33\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.quizresources\"\r\n        minSdk 21\r\n        targetSdk 33\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n        vectorDrawables {\r\n            useSupportLibrary true\r\n        }\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n    buildFeatures {\r\n        compose true\r\n        viewBinding = true\r\n    }\r\n    composeOptions {\r\n        kotlinCompilerExtensionVersion '1.1.1'\r\n    }\r\n    packagingOptions {\r\n        resources {\r\n            excludes += '/META-INF/{AL2.0,LGPL2.1}'\r\n        }\r\n    }\r\n    buildToolsVersion '33.0.0'\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation 'androidx.core:core-ktx:1.9.0'\r\n    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'\r\n    implementation 'androidx.activity:activity-compose:1.6.1'\r\n    implementation \"androidx.compose.ui:ui:$compose_ui_version\"\r\n    implementation \"androidx.compose.ui:ui-tooling-preview:$compose_ui_version\"\r\n    implementation 'androidx.compose.material:material:1.3.1'\r\n    testImplementation 'junit:junit:4.13.2'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.4'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'\r\n    androidTestImplementation \"androidx.compose.ui:ui-test-junit4:$compose_ui_version\"\r\n    debugImplementation \"androidx.compose.ui:ui-tooling:$compose_ui_version\"\r\n    debugImplementation \"androidx.compose.ui:ui-test-manifest:$compose_ui_version\"\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/build.gradle b/app/build.gradle
+---- a/app/build.gradle	(revision ebab7c76bb57857889063aa3e67634cd94f45cc8)
+-+++ b/app/build.gradle	(date 1670169019089)
+-@@ -49,6 +49,7 @@
+- }
+- 
+- dependencies {
+-+    def nav_version = "2.5.3"
+- 
+-     implementation 'androidx.core:core-ktx:1.9.0'
+-     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+-@@ -62,4 +63,6 @@
+-     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+-     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+-     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+-+
+-+    implementation("androidx.navigation:navigation-compose:$nav_version")
+- }
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09__Changes_.xml	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ /dev/null	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_07_12_2022_13_09_[Changes]" date="1670396973022" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_13_09_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 07.12.2022 13:09 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: app/src/main/java/com/example/quizresources/screen/QuestionLast.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.quizresources.screen\r\n\r\nimport androidx.compose.animation.AnimatedVisibility\r\nimport androidx.compose.animation.fadeIn\r\nimport androidx.compose.animation.fadeOut\r\nimport androidx.compose.animation.shrinkVertically\r\nimport androidx.compose.animation.slideOutVertically\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.Arrangement\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.Row\r\nimport androidx.compose.foundation.layout.Spacer\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.fillMaxWidth\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.foundation.layout.size\r\nimport androidx.compose.foundation.selection.selectable\r\nimport androidx.compose.material.Button\r\nimport androidx.compose.material.RadioButton\r\nimport androidx.compose.material.Scaffold\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.getValue\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.runtime.setValue\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.example.quizresources.TopBar\r\nimport com.example.quizresources.navigation.QuizStorageNavRoute\r\n\r\n\r\n@Composable\r\nfun QuestionLast(\r\n    navController: NavController,\r\n    questionNumber: Int,\r\n    question: String,\r\n    radioOptions: List<String>,\r\n) {\r\n    var visible by remember { mutableStateOf(false) }\r\n    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions.first()) }\r\n    Scaffold(topBar = { TopBar(navController, \"Вопрос 3\") }, bottomBar = {\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .background(Color.Gray),\r\n            verticalAlignment = Alignment.CenterVertically,\r\n            horizontalArrangement = Arrangement.Center\r\n        ) {\r\n            Button(onClick = { visible = !visible }) {\r\n                Text(\r\n                    text = if (visible) {\r\n                        \"Скрыть\"\r\n                    } else {\r\n                        \"Показать\"\r\n                    }\r\n                )\r\n            }\r\n        }\r\n    }, content = { paddingValues ->\r\n        Column(\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n                .padding(paddingValues),\r\n            verticalArrangement = Arrangement.Center,\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            Text(text = question)\r\n            Spacer(modifier = Modifier.size(8.dp))\r\n            AnimatedVisibility(\r\n                visible = visible, enter = fadeIn(\r\n                    initialAlpha = 0.0f\r\n                ), exit = slideOutVertically() + shrinkVertically() + fadeOut()\r\n            ) {\r\n                Column {\r\n                    radioOptions.forEach { text ->\r\n                        Row(\r\n                            Modifier\r\n                                .fillMaxWidth()\r\n                                .selectable(selected = (text == selectedOption), onClick = {\r\n                                    onOptionSelected(text)\r\n                                })\r\n                                .padding(horizontal = 16.dp),\r\n                            verticalAlignment = Alignment.CenterVertically\r\n                        ) {\r\n                            RadioButton(selected = (text == selectedOption),\r\n                                onClick = { onOptionSelected(text) })\r\n                            Text(text = text)\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n            Spacer(modifier = Modifier.size(10.dp))\r\n            Button(onClick = {\r\n                navController.navigate(route = QuizStorageNavRoute.ResultsQuestions.route) {\r\n                    popUpTo(0)\r\n                }\r\n                QuizStorageNavRoute.ResultsQuestions.answers.add(questionNumber - 1, selectedOption)\r\n            }) {\r\n                Text(text = \"Результаты\")\r\n            }\r\n        }\r\n    })\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/quizresources/screen/QuestionLast.kt b/app/src/main/java/com/example/quizresources/screen/QuestionLast.kt
+--- a/app/src/main/java/com/example/quizresources/screen/QuestionLast.kt	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ b/app/src/main/java/com/example/quizresources/screen/QuestionLast.kt	(date 1671174255163)
+@@ -27,8 +27,10 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.dp
+ import androidx.navigation.NavController
++import com.example.quizresources.R
+ import com.example.quizresources.TopBar
+ import com.example.quizresources.navigation.QuizStorageNavRoute
+ 
+@@ -42,7 +44,12 @@
+ ) {
+     var visible by remember { mutableStateOf(false) }
+     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions.first()) }
+-    Scaffold(topBar = { TopBar(navController, "Вопрос 3") }, bottomBar = {
++    Scaffold(topBar = {
++        TopBar(
++            navController,
++            stringResource(id = R.string.numberQUIZ) + questionNumber
++        )
++    }, bottomBar = {
+         Row(
+             modifier = Modifier
+                 .fillMaxWidth()
+@@ -53,9 +60,9 @@
+             Button(onClick = { visible = !visible }) {
+                 Text(
+                     text = if (visible) {
+-                        "Скрыть"
++                        stringResource(R.string.hide)
+                     } else {
+-                        "Показать"
++                        stringResource(R.string.show)
+                     }
+                 )
+             }
+@@ -100,7 +107,7 @@
+                 }
+                 QuizStorageNavRoute.ResultsQuestions.answers.add(questionNumber - 1, selectedOption)
+             }) {
+-                Text(text = "Результаты")
++                Text(text = stringResource(id = R.string.results))
+             }
+         }
+     })
+Index: app/src/main/java/com/example/quizresources/screen/Question.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.quizresources.screen\r\n\r\nimport androidx.compose.animation.AnimatedVisibility\r\nimport androidx.compose.animation.fadeIn\r\nimport androidx.compose.animation.fadeOut\r\nimport androidx.compose.animation.shrinkVertically\r\nimport androidx.compose.animation.slideOutVertically\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.Arrangement\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.Row\r\nimport androidx.compose.foundation.layout.Spacer\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.fillMaxWidth\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.foundation.layout.size\r\nimport androidx.compose.foundation.selection.selectable\r\nimport androidx.compose.material.Button\r\nimport androidx.compose.material.RadioButton\r\nimport androidx.compose.material.Scaffold\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.getValue\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.runtime.setValue\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.example.quizresources.TopBar\r\nimport com.example.quizresources.navigation.QuizStorageNavRoute\r\n\r\n@Composable\r\nfun Question(\r\n    navController: NavController,\r\n    questionNumber: Int,\r\n    question: String,\r\n    radioOptions: List<String>,\r\n    route: String\r\n) {\r\n    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions.first()) }\r\n    var visible by remember { mutableStateOf(false) }\r\n    Scaffold(topBar = { TopBar(navController, \"Вопрос $questionNumber\") }, bottomBar = {\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .background(Color.Gray),\r\n            verticalAlignment = Alignment.CenterVertically,\r\n            horizontalArrangement = Arrangement.Center\r\n        ) {\r\n            Button(onClick = { visible = !visible }) {\r\n                Text(\r\n                    text = if (visible) {\r\n                        \"Скрыть\"\r\n                    } else {\r\n                        \"Показать\"\r\n                    }\r\n                )\r\n            }\r\n        }\r\n    }, content = { paddingValues ->\r\n        Column(\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n                .padding(paddingValues),\r\n            verticalArrangement = Arrangement.Center,\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            Text(text = question)\r\n            Spacer(modifier = Modifier.size(8.dp))\r\n            AnimatedVisibility(\r\n                visible = visible, enter = fadeIn(\r\n                    initialAlpha = 0.0f\r\n                ), exit = slideOutVertically() + shrinkVertically() + fadeOut()\r\n            ) {\r\n                Column {\r\n                    radioOptions.forEach { text ->\r\n                        Row(\r\n                            Modifier\r\n                                .fillMaxWidth()\r\n                                .selectable(selected = (text == selectedOption), onClick = {\r\n                                    onOptionSelected(text)\r\n                                })\r\n                                .padding(horizontal = 16.dp),\r\n                            verticalAlignment = Alignment.CenterVertically\r\n                        ) {\r\n                            RadioButton(selected = (text == selectedOption),\r\n                                onClick = { onOptionSelected(text) })\r\n                            Text(text = text)\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n            Spacer(modifier = Modifier.size(10.dp))\r\n            Button(onClick = {\r\n                navController.navigate(route = route)\r\n                QuizStorageNavRoute.ResultsQuestions.answers.add(\r\n                    questionNumber - 1, selectedOption\r\n                )\r\n            }) {\r\n                Text(text = \"Следующий вопрос\")\r\n            }\r\n        }\r\n    })\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/quizresources/screen/Question.kt b/app/src/main/java/com/example/quizresources/screen/Question.kt
+--- a/app/src/main/java/com/example/quizresources/screen/Question.kt	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ b/app/src/main/java/com/example/quizresources/screen/Question.kt	(date 1671174273778)
+@@ -27,8 +27,10 @@
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.dp
+ import androidx.navigation.NavController
++import com.example.quizresources.R
+ import com.example.quizresources.TopBar
+ import com.example.quizresources.navigation.QuizStorageNavRoute
+ 
+@@ -42,7 +44,12 @@
+ ) {
+     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions.first()) }
+     var visible by remember { mutableStateOf(false) }
+-    Scaffold(topBar = { TopBar(navController, "Вопрос $questionNumber") }, bottomBar = {
++    Scaffold(topBar = {
++        TopBar(
++            navController,
++            stringResource(R.string.numberQUIZ) + questionNumber
++        )
++    }, bottomBar = {
+         Row(
+             modifier = Modifier
+                 .fillMaxWidth()
+@@ -53,9 +60,9 @@
+             Button(onClick = { visible = !visible }) {
+                 Text(
+                     text = if (visible) {
+-                        "Скрыть"
++                        stringResource(R.string.hide)
+                     } else {
+-                        "Показать"
++                        stringResource(R.string.show)
+                     }
+                 )
+             }
+@@ -100,7 +107,7 @@
+                     questionNumber - 1, selectedOption
+                 )
+             }) {
+-                Text(text = "Следующий вопрос")
++                Text(text = stringResource(R.string.nextQUIZ))
+             }
+         }
+     })
+Index: app/src/main/java/com/example/quizresources/screen/ResultsQuestions.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.quizresources.screen\r\n\r\nimport androidx.compose.animation.AnimatedVisibility\r\nimport androidx.compose.animation.fadeIn\r\nimport androidx.compose.animation.fadeOut\r\nimport androidx.compose.animation.shrinkVertically\r\nimport androidx.compose.animation.slideOutVertically\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.Arrangement\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.Row\r\nimport androidx.compose.foundation.layout.Spacer\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.fillMaxWidth\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.foundation.layout.size\r\nimport androidx.compose.material.Button\r\nimport androidx.compose.material.Scaffold\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.getValue\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.runtime.setValue\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.draw.scale\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.tooling.preview.Preview\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport androidx.navigation.compose.rememberNavController\r\nimport com.airbnb.lottie.compose.LottieAnimation\r\nimport com.airbnb.lottie.compose.LottieCompositionSpec\r\nimport com.airbnb.lottie.compose.LottieConstants\r\nimport com.airbnb.lottie.compose.rememberLottieComposition\r\nimport com.example.quizresources.R\r\nimport com.example.quizresources.TopBar\r\nimport com.example.quizresources.navigation.QuizStorageNavRoute\r\n\r\n@Preview\r\n@Composable\r\nfun ResultsQuestions(navController: NavController = rememberNavController()) {\r\n    var visible by remember { mutableStateOf(false) }\r\n    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.some_video))\r\n    Scaffold(topBar = { TopBar(navController, \"Результаты\") }, bottomBar = {\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .background(Color.Gray),\r\n            verticalAlignment = Alignment.CenterVertically,\r\n            horizontalArrangement = Arrangement.Center\r\n        ) {\r\n            Button(onClick = { visible = !visible }) {\r\n                Text(\r\n                    text = if (visible) {\r\n                        \"Скрыть\"\r\n                    } else {\r\n                        \"Показать\"\r\n                    }\r\n                )\r\n            }\r\n        }\r\n    }, content = { paddingValues ->\r\n        LottieAnimation(modifier = Modifier.fillMaxSize().scale(2f), composition = composition, iterations = LottieConstants.IterateForever)\r\n        Column(\r\n            modifier = Modifier\r\n                .fillMaxSize()\r\n                .padding(paddingValues),\r\n            verticalArrangement = Arrangement.Center,\r\n            horizontalAlignment = Alignment.CenterHorizontally\r\n        ) {\r\n            Spacer(modifier = Modifier.size(10.dp))\r\n            Text(text = \"Результаты\")\r\n            Spacer(modifier = Modifier.size(8.dp))\r\n            QuizStorageNavRoute.ResultsQuestions.answers.forEach { answer ->\r\n                AnimatedVisibility(\r\n                    visible = visible, enter = fadeIn(\r\n                        initialAlpha = 0.0f\r\n                    ), exit = slideOutVertically() + shrinkVertically() + fadeOut()\r\n                ) { Text(text = answer) }\r\n            }\r\n            Spacer(modifier = Modifier.size(10.dp))\r\n            Button(onClick = {\r\n                navController.navigate(route = QuizStorageNavRoute.StartScreen.route) {\r\n                    popUpTo(QuizStorageNavRoute.StartScreen.route) {\r\n                        inclusive = true\r\n                    }\r\n                }\r\n            }) {\r\n                Text(text = \"На главную\")\r\n            }\r\n            Spacer(modifier = Modifier.size(125.dp))\r\n        }\r\n    })\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/quizresources/screen/ResultsQuestions.kt b/app/src/main/java/com/example/quizresources/screen/ResultsQuestions.kt
+--- a/app/src/main/java/com/example/quizresources/screen/ResultsQuestions.kt	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ b/app/src/main/java/com/example/quizresources/screen/ResultsQuestions.kt	(date 1671174346187)
+@@ -26,6 +26,7 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.scale
+ import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.tooling.preview.Preview
+ import androidx.compose.ui.unit.dp
+ import androidx.navigation.NavController
+@@ -43,7 +44,7 @@
+ fun ResultsQuestions(navController: NavController = rememberNavController()) {
+     var visible by remember { mutableStateOf(false) }
+     val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.some_video))
+-    Scaffold(topBar = { TopBar(navController, "Результаты") }, bottomBar = {
++    Scaffold(topBar = { TopBar(navController, stringResource(R.string.results)) }, bottomBar = {
+         Row(
+             modifier = Modifier
+                 .fillMaxWidth()
+@@ -54,15 +55,19 @@
+             Button(onClick = { visible = !visible }) {
+                 Text(
+                     text = if (visible) {
+-                        "Скрыть"
++                        stringResource(R.string.hide)
+                     } else {
+-                        "Показать"
++                        stringResource(R.string.show)
+                     }
+                 )
+             }
+         }
+     }, content = { paddingValues ->
+-        LottieAnimation(modifier = Modifier.fillMaxSize().scale(2f), composition = composition, iterations = LottieConstants.IterateForever)
++        LottieAnimation(
++            modifier = Modifier
++                .fillMaxSize()
++                .scale(2f), composition = composition, iterations = LottieConstants.IterateForever
++        )
+         Column(
+             modifier = Modifier
+                 .fillMaxSize()
+@@ -71,7 +76,7 @@
+             horizontalAlignment = Alignment.CenterHorizontally
+         ) {
+             Spacer(modifier = Modifier.size(10.dp))
+-            Text(text = "Результаты")
++            Text(text = stringResource(R.string.results))
+             Spacer(modifier = Modifier.size(8.dp))
+             QuizStorageNavRoute.ResultsQuestions.answers.forEach { answer ->
+                 AnimatedVisibility(
+@@ -88,7 +93,7 @@
+                     }
+                 }
+             }) {
+-                Text(text = "На главную")
++                Text(text = stringResource(R.string.onMainScreen))
+             }
+             Spacer(modifier = Modifier.size(125.dp))
+         }
+Index: app/src/main/res/values-ru/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values-ru/strings.xml b/app/src/main/res/values-ru/strings.xml
+new file mode 100644
+--- /dev/null	(date 1671176062859)
++++ b/app/src/main/res/values-ru/strings.xml	(date 1671176062859)
+@@ -0,0 +1,36 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_name">Quiz resources</string>
++
++    <string name="date">Дата</string>
++    <string name="chooseDate">"Выберите дату: "</string>
++    <string name="startPant">Стартовая картинка</string>
++    <string name="startQUIZ">Начать опрос</string>
++    <string name="hide">Скрыть</string>
++    <string name="show">Показать</string>
++    <string name="results">Результаты</string>
++    <string name="onMainScreen">На главную</string>
++    <string name="numberQUIZ">Вопрос</string>
++    <string name="nextQUIZ">Следующий вопрос</string>
++
++    <string name="QUIZ1">Любой вопрос</string>
++    <string-array name="QUIZ1arr">
++        <item>A</item>
++        <item>B</item>
++        <item>C</item>
++    </string-array>
++
++    <string name="QUIZ2">Любой вопрос</string>
++    <string-array name="QUIZ2arr">
++        <item>вариант A</item>
++        <item>вариант B</item>
++        <item>вариант C</item>
++    </string-array>
++
++    <string name="QUIZ3">Любой вопрос</string>
++    <string-array name="QUIZ3arr">
++        <item>ответ A</item>
++        <item>ответ B</item>
++        <item>ответ C</item>
++    </string-array>
++</resources>
+\ No newline at end of file
+Index: app/src/main/java/com/example/quizresources/screen/StartScreen.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.quizresources.screen\r\n\r\nimport androidx.compose.foundation.Image\r\nimport androidx.compose.foundation.layout.Arrangement\r\nimport androidx.compose.foundation.layout.Box\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.Spacer\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.height\r\nimport androidx.compose.foundation.layout.size\r\nimport androidx.compose.material.Button\r\nimport androidx.compose.material.Text\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.res.painterResource\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.navigation.NavController\r\nimport com.example.quizresources.R\r\nimport com.example.quizresources.navigation.QuizStorageNavRoute\r\nimport com.example.quizresources.ui.theme.opensans\r\n\r\n@Composable\r\nfun StartScreen(navController: NavController) {\r\n    Box(modifier = Modifier.fillMaxSize()) {\r\n        Column(modifier = Modifier.fillMaxSize(),\r\n            verticalArrangement = Arrangement.Center,\r\n            horizontalAlignment = Alignment.CenterHorizontally) {\r\n\r\n            Image(painter = painterResource(id = R.drawable.welcome_picture),\r\n                contentDescription = \"\")\r\n            Spacer(modifier = Modifier.height(10.dp))\r\n            Text(text = \"Стартовая картинка\", fontFamily = opensans, fontWeight = FontWeight.Bold)\r\n            Spacer(modifier = Modifier.size(10.dp))\r\n            Button(onClick = { navController.navigate(route = QuizStorageNavRoute.Question1.route) }) {\r\n                Text(text = \"Начать опрос\")\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/quizresources/screen/StartScreen.kt b/app/src/main/java/com/example/quizresources/screen/StartScreen.kt
+--- a/app/src/main/java/com/example/quizresources/screen/StartScreen.kt	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ b/app/src/main/java/com/example/quizresources/screen/StartScreen.kt	(date 1671174267543)
+@@ -1,41 +1,113 @@
+ package com.example.quizresources.screen
+ 
++import android.app.DatePickerDialog
++import android.widget.DatePicker
+ import androidx.compose.foundation.Image
+ import androidx.compose.foundation.layout.Arrangement
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.Column
++import androidx.compose.foundation.layout.Row
+ import androidx.compose.foundation.layout.Spacer
+ import androidx.compose.foundation.layout.fillMaxSize
++import androidx.compose.foundation.layout.fillMaxWidth
+ import androidx.compose.foundation.layout.height
++import androidx.compose.foundation.layout.padding
+ import androidx.compose.foundation.layout.size
+ import androidx.compose.material.Button
++import androidx.compose.material.Scaffold
+ import androidx.compose.material.Text
++import androidx.compose.material.rememberScaffoldState
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.getValue
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.runtime.rememberCoroutineScope
++import androidx.compose.runtime.setValue
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.res.painterResource
++import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.font.FontWeight
++import androidx.compose.ui.text.style.TextAlign
++import androidx.compose.ui.tooling.preview.Preview
+ import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
+ import androidx.navigation.NavController
++import androidx.navigation.compose.rememberNavController
+ import com.example.quizresources.R
+ import com.example.quizresources.navigation.QuizStorageNavRoute
+ import com.example.quizresources.ui.theme.opensans
++import kotlinx.coroutines.launch
++import java.util.Calendar
++import java.util.Date
+ 
++@Preview(showBackground = true)
+ @Composable
+-fun StartScreen(navController: NavController) {
+-    Box(modifier = Modifier.fillMaxSize()) {
+-        Column(modifier = Modifier.fillMaxSize(),
+-            verticalArrangement = Arrangement.Center,
+-            horizontalAlignment = Alignment.CenterHorizontally) {
++fun StartScreen(navController: NavController = rememberNavController()) {
++    val scope = rememberCoroutineScope()
++    var mDate by remember { mutableStateOf("") }
++    val mContext = LocalContext.current
++    val mCalendar = Calendar.getInstance()
++    mCalendar.time = Date()
++    val mYear: Int = mCalendar.get(Calendar.YEAR)
++    val mMonth: Int = mCalendar.get(Calendar.MONTH)
++    val mDay: Int = mCalendar.get(Calendar.DAY_OF_MONTH)
++    val scaffoldState = rememberScaffoldState()
++    val mDatePickerDialog = DatePickerDialog(
++        mContext, { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
++            mDate = "$mDayOfMonth/${mMonth + 1}/$mYear"
++            scope.launch { scaffoldState.snackbarHostState.showSnackbar(mDate) }
++        }, mYear, mMonth, mDay
++
++    )
++    Scaffold(scaffoldState = scaffoldState, topBar = {
++        Row(
++            modifier = Modifier.fillMaxWidth(),
++            verticalAlignment = Alignment.CenterVertically,
++            horizontalArrangement = Arrangement.End
++        ) {
++            Text(
++                text = stringResource(R.string.chooseDate) + mDate,
++                fontSize = 16.sp,
++                textAlign = TextAlign.Center
++            )
++            Spacer(modifier = Modifier.size(10.dp))
++            Button(modifier = Modifier.padding(16.dp), onClick = {
++                mDatePickerDialog.show()
++
++            }) {
++                Text(text = stringResource(R.string.date))
++            }
++        }
++    }, content = { paddingValues ->
++        Box(
++            modifier = Modifier
++                .padding(paddingValues)
++                .fillMaxSize()
++        ) {
++            Column(
++                modifier = Modifier.fillMaxSize(),
++                verticalArrangement = Arrangement.Center,
++                horizontalAlignment = Alignment.CenterHorizontally
++            ) {
+ 
+-            Image(painter = painterResource(id = R.drawable.welcome_picture),
+-                contentDescription = "")
+-            Spacer(modifier = Modifier.height(10.dp))
+-            Text(text = "Стартовая картинка", fontFamily = opensans, fontWeight = FontWeight.Bold)
+-            Spacer(modifier = Modifier.size(10.dp))
+-            Button(onClick = { navController.navigate(route = QuizStorageNavRoute.Question1.route) }) {
+-                Text(text = "Начать опрос")
++                Image(
++                    painter = painterResource(id = R.drawable.welcome_picture),
++                    contentDescription = ""
++                )
++                Spacer(modifier = Modifier.height(10.dp))
++                Text(
++                    text = stringResource(R.string.startPant),
++                    fontFamily = opensans,
++                    fontWeight = FontWeight.Bold
++                )
++                Spacer(modifier = Modifier.size(10.dp))
++                Button(onClick = { navController.navigate(route = QuizStorageNavRoute.Question1.route) }) {
++                    Text(text = stringResource(R.string.startQUIZ))
++                }
+             }
+         }
+-    }
+-}
+\ No newline at end of file
++    })
++}
++
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'org.jetbrains.kotlin.android'\r\n}\r\n\r\nandroid {\r\n    namespace 'com.example.quizresources'\r\n    compileSdk 33\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.quizresources\"\r\n        minSdk 21\r\n        targetSdk 33\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n        vectorDrawables {\r\n            useSupportLibrary true\r\n        }\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n    buildFeatures {\r\n        compose true\r\n        viewBinding = true\r\n    }\r\n    composeOptions {\r\n        kotlinCompilerExtensionVersion '1.1.1'\r\n    }\r\n    packagingOptions {\r\n        resources {\r\n            excludes += '/META-INF/{AL2.0,LGPL2.1}'\r\n        }\r\n    }\r\n    buildToolsVersion '33.0.0'\r\n}\r\n\r\ndependencies {\r\n    def nav_version = \"2.5.3\"\r\n\r\n    implementation 'androidx.core:core-ktx:1.9.0'\r\n    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'\r\n    implementation 'androidx.activity:activity-compose:1.6.1'\r\n    implementation \"androidx.compose.ui:ui:$compose_ui_version\"\r\n    implementation \"androidx.compose.ui:ui-tooling-preview:$compose_ui_version\"\r\n    implementation 'androidx.compose.material:material:1.3.1'\r\n    testImplementation 'junit:junit:4.13.2'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.4'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'\r\n    androidTestImplementation \"androidx.compose.ui:ui-test-junit4:$compose_ui_version\"\r\n    debugImplementation \"androidx.compose.ui:ui-tooling:$compose_ui_version\"\r\n    debugImplementation \"androidx.compose.ui:ui-test-manifest:$compose_ui_version\"\r\n\r\n    implementation(\"androidx.navigation:navigation-compose:$nav_version\")\r\n    implementation (\"com.google.accompanist:accompanist-navigation-animation:0.28.0\")\r\n\r\n    implementation \"com.airbnb.android:lottie-compose:5.2.0\"\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 3521f02a29f2c7d35ccb4e9fa411a38579f0c13c)
++++ b/app/build.gradle	(date 1671168492214)
+@@ -49,7 +49,6 @@
+ }
+ 
+ dependencies {
+-    def nav_version = "2.5.3"
+ 
+     implementation 'androidx.core:core-ktx:1.9.0'
+     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+@@ -64,9 +63,11 @@
+     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+ 
+-    implementation("androidx.navigation:navigation-compose:$nav_version")
++    implementation("androidx.navigation:navigation-compose:2.5.3")
+     implementation ("com.google.accompanist:accompanist-navigation-animation:0.28.0")
+ 
+     implementation "com.airbnb.android:lottie-compose:5.2.0"
+ 
++    implementation('com.google.android.material:material:1.7.0')
++
+ }
+\ No newline at end of file

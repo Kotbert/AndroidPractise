@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quiz resources</string>
+
+    <string name="date">Дата</string>
+    <string name="chooseDate">"Выберите дату: "</string>
+    <string name="startPant">Стартовая картинка</string>
+    <string name="startQUIZ">Начать опрос</string>
+    <string name="hide">Скрыть</string>
+    <string name="show">Показать</string>
+    <string name="results">Результаты</string>
+    <string name="onMainScreen">На главную</string>
+    <string name="numberQUIZ">Вопрос</string>
+    <string name="nextQUIZ">Следующий вопрос</string>
+
+    <string name="QUIZ1">Любой вопрос</string>
+    <string-array name="QUIZ1arr">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+    </string-array>
+
+    <string name="QUIZ2">Любой вопрос</string>
+    <string-array name="QUIZ2arr">
+        <item>вариант A</item>
+        <item>вариант B</item>
+        <item>вариант C</item>
+    </string-array>
+
+    <string name="QUIZ3">Любой вопрос</string>
+    <string-array name="QUIZ3arr">
+        <item>ответ A</item>
+        <item>ответ B</item>
+        <item>ответ C</item>
+    </string-array>
+</resources>

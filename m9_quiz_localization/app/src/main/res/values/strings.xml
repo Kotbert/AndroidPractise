@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name" translatable="false">Quiz resources</string>
+    <string name="date">Data</string>
+    <string name="chooseDate">"Choose a query: "</string>
+    <string name="startPant">Start image</string>
+    <string name="startQUIZ">Start QUIZ</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
+    <string name="results">Results</string>
+    <string name="onMainScreen">Main</string>
+    <string name="numberQUIZ">Question</string>
+    <string name="nextQUIZ">Next QUIZ</string>
+
+    <string name="QUIZ1">Any question</string>
+    <string-array name="QUIZ1arr">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+    </string-array>
+
+    <string name="QUIZ2">Any question</string>
+    <string-array name="QUIZ2arr">
+        <item>option A</item>
+        <item>option B</item>
+        <item>option C</item>
+    </string-array>
+
+    <string name="QUIZ3">Any question</string>
+    <string-array name="QUIZ3arr">
+        <item>A response</item>
+        <item>B response</item>
+        <item>C response</item>
+    </string-array>
+
+</resources>
